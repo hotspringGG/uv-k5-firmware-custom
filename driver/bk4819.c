@@ -1686,7 +1686,12 @@ void BK4819_PlayRogerNormal(void) {
 #endif
 
     BK4819_EnterTxMute();
-    BK4819_SetAF(BK4819_AF_MUTE);
+      if(gEeprom.MDC_AUDIO_LOCAL){
+        AUDIO_AudioPathOn();
+        BK4819_SetAF(BK4819_AF_BEEP);
+    }else{
+        BK4819_SetAF(BK4819_AF_MUTE);
+    }
 
     BK4819_WriteRegister(BK4819_REG_70, BK4819_REG_70_ENABLE_TONE1 | (66u << BK4819_REG_70_SHIFT_TONE1_TUNING_GAIN));
 
@@ -1886,15 +1891,13 @@ void BK4819_stop_tones(const bool tx)
             BK4819_REG_30_ENABLE_TX_DSP    |
 //			BK4819_REG_30_ENABLE_RX_DSP    |
         0);
-
-#if 1
-            GPIO_ClearBit(&GPIOC->DATA, 4);
-            BK4819_SetAF(BK4819_AF_MUTE);
-#else
-            // let the user hear the FSK being sent
-            BK4819_SetAF(BK4819_AF_BEEP);
-            GPIO_SetBit(&GPIOC->DATA, 4);
-#endif
+ if(gEeprom.MDC_AUDIO_LOCAL){
+			BK4819_SetAF(BK4819_AF_BEEP);
+			GPIO_SetBit(&GPIOC->DATA, 4);
+        }else{
+			GPIO_ClearBit(&GPIOC->DATA, 4);
+			BK4819_SetAF(BK4819_AF_MUTE);
+        }
 //		SYSTEM_DelayMs(2);
 
         // REG_51
