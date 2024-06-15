@@ -134,7 +134,7 @@ void SETTINGS_InitEEPROM(void)
     gEeprom.KEY_2_SHORT_PRESS_ACTION      = (Data[3] < ACTION_OPT_LEN-2) ? Data[3] : ACTION_OPT_WIDTH;
     gEeprom.KEY_2_LONG_PRESS_ACTION       = (Data[4] < ACTION_OPT_LEN) ? Data[4] : ACTION_OPT_FLASHLIGHT;
 #endif
-
+    gEeprom.MDC_AUDIO_LOCAL = Data[5];
     // 0E98..0E9F
     EEPROM_ReadBuffer(0x0E98, Data, 8);
     memcpy(&gEeprom.POWER_ON_PASSWORD, Data, 4);
