@@ -178,8 +178,8 @@ void UI_DisplayStatus() {
 //
 //            case 2:		// percentage
 
-        const uint8_t voltage = gBatteryVoltageAverage;
-            sprintf(s, "%u.%02uV", voltage / 1, voltage % 100);
+        const uint16_t voltage = gBatteryVoltageAverage;
+            sprintf(s, "%u.%02uV", voltage / 100, voltage % 100);
         // sprintf(s, "%u%%", BATTERY_VoltsToPercent(gBatteryVoltageAverage));
 //                break;
 //        }
