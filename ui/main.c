@@ -995,7 +995,7 @@ else
                 center_line = CENTER_LINE_CHARGE_DATA;
 
                 sprintf(String, "Charge %u.%02uV",
-                    gBatteryVoltageAverage / 100, gBatteryVoltageAverage % 100);
+                    gBatteryVoltageAverage / 1, gBatteryVoltageAverage % 100);
                 UI_PrintStringSmall(String, 2, 0, 3);
             }
 #endif
